@@ -1,0 +1,6 @@
+{
+  "name": "Nordic Solutions AI",
+  "description": "Premium Scandi-minimalist redesign of Nordic Solutions AI. Delivering bespoke AI voice agents, visual workflow builders, custom CRM integrations, and interactive ROI metrics for Danish enterprises.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
