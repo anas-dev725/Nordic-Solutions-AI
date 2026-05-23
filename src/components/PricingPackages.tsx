@@ -109,8 +109,8 @@ export function PricingPackages({ language, theme, onSelectPlan }: PricingPackag
       <div className="text-center max-w-2xl mx-auto">
         <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono font-medium tracking-wide uppercase ${
           theme === 'sand' 
-            ? 'bg-[#E5EAD8] text-[#556641] border border-[#A3B18A]/30' 
-            : 'bg-[#1A1E1B] text-[#A3B18A] border border-[#A3B18A]/20'
+            ? 'bg-[#FEF3C7] text-[#B45309] border border-[#FAB319]/25' 
+            : 'bg-[#151619] text-[#FAB319] border border-[#FAB319]/25'
         }`}>
           <Asterisk className="w-3 h-3 text-amber-500 animate-spin-slow" />
           {isDa ? 'Gennemskuelige AI Investeringer' : 'Transparent AI Investments'}
@@ -138,13 +138,13 @@ export function PricingPackages({ language, theme, onSelectPlan }: PricingPackag
               transition={{ type: "spring", stiffness: 350, damping: 20 }}
               className={`relative rounded-3xl p-6 sm:p-8 border flex flex-col justify-between transition-all duration-300 ${
                 plan.popular
-                  ? 'border-[#718259]/60 dark:border-[#A3B18A]/45 shadow-[0_20px_45px_rgba(113,130,89,0.12)] bg-gradient-to-b from-[#718259]/[0.02] to-[#718259]/[0.05]'
+                  ? 'border-[#FAB319]/60 dark:border-[#FAB319]/45 shadow-[0_20px_45px_rgba(250,179,25,0.08)] bg-gradient-to-b from-[#FAB319]/[0.02] to-[#FAB319]/[0.05]'
                   : 'border-current/[0.06] bg-current/[0.005] hover:border-current/15'
               }`}
             >
               {/* Highlight ribbon for Core Solution */}
               {plan.popular && (
-                <div className="absolute top-0 right-8 -translate-y-1/2 bg-[#718259] dark:bg-[#A3B18A] text-[#FAF9F6] dark:text-[#0F1210] font-mono text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-full flex items-center gap-1 shadow-xs">
+                <div className="absolute top-0 right-8 -translate-y-1/2 bg-[#D97706] dark:bg-[#FAB319] text-white dark:text-[#080809] font-mono text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-full flex items-center gap-1 shadow-xs">
                   <Flame className="w-3 h-3 text-amber-500 animate-pulse fill-amber-500" />
                   {isDa ? "MEST POPULÆR" : "RECOMMENDED"}
                 </div>
@@ -182,7 +182,7 @@ export function PricingPackages({ language, theme, onSelectPlan }: PricingPackag
                 <ul className="space-y-2.5 pt-2">
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-start gap-2 text-xs">
-                      <span className="mt-0.5 shrink-0 rounded bg-[#718259]/10 text-[#718259] dark:text-[#A3B18A] p-0.5">
+                      <span className="mt-0.5 shrink-0 rounded bg-[#FAB319]/10 text-[#D97706] dark:text-[#FAB319] p-0.5">
                         <Check className="w-3 h-3" strokeWidth={3} />
                       </span>
                       <span className="opacity-85 font-sans leading-tight">{feature}</span>
@@ -197,8 +197,8 @@ export function PricingPackages({ language, theme, onSelectPlan }: PricingPackag
                   onClick={() => onSelectPlan(plan.name)}
                   className={`w-full py-3.5 rounded-xl text-xs font-display font-bold tracking-wide uppercase transition-all duration-300 flex items-center justify-center gap-1 px-4 cursor-pointer ${
                     plan.popular
-                      ? 'bg-[#718259] dark:bg-[#A3B18A] text-white dark:text-[#0F1210] hover:bg-current/[0.1] hover:text-[#718259] border border-transparent hover:border-[#718259]/35 hover:scale-[1.01]'
-                      : 'bg-current/[0.03] border border-current/[0.08] hover:border-current/30 text-current hover:bg-[#718259]/10'
+                      ? 'bg-[#D97706] dark:bg-[#FAB319] text-white dark:text-[#080809] hover:opacity-90 border border-transparent'
+                      : 'bg-current/[0.03] border border-current/[0.08] hover:border-current/30 text-current hover:bg-[#FAB319]/10'
                   }`}
                 >
                   <span>{plan.cta}</span>
@@ -217,7 +217,7 @@ export function PricingPackages({ language, theme, onSelectPlan }: PricingPackag
       </div>
 
       {/* Bottom informational disclaimer bar */}
-      <div className="p-4 rounded-2xl bg-[#718259]/[0.03] border border-[#718259]/15 flex flex-col sm:flex-row items-center justify-between text-xs gap-3 font-sans">
+      <div className="p-4 rounded-2xl bg-[#FAB319]/[0.03] border border-[#FAB319]/15 flex flex-col sm:flex-row items-center justify-between text-xs gap-3 font-sans">
         <div className="flex items-center gap-2">
           <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0" />
           <span className="opacity-80 font-medium">
@@ -228,7 +228,7 @@ export function PricingPackages({ language, theme, onSelectPlan }: PricingPackag
         </div>
         <button
           onClick={() => onSelectPlan('Custom Scope Assessment')}
-          className="text-xs hover:underline cursor-pointer font-bold text-[#718259] dark:text-[#A3B18A] shrink-0"
+          className="text-xs hover:underline cursor-pointer font-bold text-[#D97706] dark:text-[#FAB319] shrink-0"
         >
           {isDa ? 'Få et uforpligtende prisoverslag →' : 'Get custom audit scoping →'}
         </button>

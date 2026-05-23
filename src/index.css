@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", sans-serif;
+  --font-sans: "Outfit", sans-serif;
   --font-outfit: "Outfit", sans-serif;
-  --font-display: "Space Grotesk", sans-serif;
+  --font-display: "Syne", sans-serif;
   --font-serif: "Instrument Serif", serif;
   --font-mono: "JetBrains Mono", monospace;
   
@@ -47,15 +47,38 @@
   background: rgba(140, 123, 104, 0.4);
 }
 
-/* Soft grid pattern background */
-.grid-dots {
-  background-image: radial-gradient(rgba(140, 123, 104, 0.15) 1px, transparent 1px);
-  background-size: 24px 24px;
+/* Soft grid pattern background with grid lines */
+.grid-lines {
+  background-image: 
+    linear-gradient(to right, rgba(217, 119, 6, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(217, 119, 6, 0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
 }
 
-.grid-dots-dark {
-  background-image: radial-gradient(rgba(245, 241, 235, 0.05) 1px, transparent 1px);
-  background-size: 24px 24px;
+.grid-lines-dark {
+  background-image: 
+    linear-gradient(to right, rgba(250, 179, 25, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(250, 179, 25, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Spin animations for luxury background vectors */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse-slow {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 45s linear infinite;
+}
+
+.animate-spin-reverse-slow {
+  animation: spin-reverse-slow 50s linear infinite;
 }
 
 /* Shimmer animations */
@@ -132,4 +155,23 @@
 .animate-bounce-horizontal {
   animation: bounce-horizontal 1.2s ease-in-out infinite;
 }
+
+/* Animated structural flow pipeline offsets */
+@keyframes pipeline-flow {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -1200;
+  }
+}
+
+.animate-pipeline-flow-1 {
+  animation: pipeline-flow 32s linear infinite;
+}
+
+.animate-pipeline-flow-2 {
+  animation: pipeline-flow 24s linear infinite;
+}
+
 
