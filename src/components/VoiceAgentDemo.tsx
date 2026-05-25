@@ -6,10 +6,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Phone, PhoneOff, Mic, Volume2, CheckCircle2, Play, ChevronRight, RefreshCw, Sparkles } from 'lucide-react';
-import { Language } from '../types';
+import { Language, Theme } from '../types';
 
 interface VoiceAgentDemoProps {
   language: Language;
+  theme: Theme;
 }
 
 interface DialogueNode {
@@ -94,7 +95,7 @@ const DEMO_CAMPAIGNS = [
   }
 ];
 
-export function VoiceAgentDemo({ language }: VoiceAgentDemoProps) {
+export function VoiceAgentDemo({ language, theme }: VoiceAgentDemoProps) {
   const [activeCampaignIdx, setActiveCampaignIdx] = useState(0);
   const [callStatus, setCallStatus] = useState<'idle' | 'ringing' | 'connected' | 'completed'>('idle');
   const [currentNodeIdx, setCurrentNodeIdx] = useState<number>(-1);
@@ -103,6 +104,56 @@ export function VoiceAgentDemo({ language }: VoiceAgentDemoProps) {
   const pulseTimer = useRef<NodeJS.Timeout | null>(null);
 
   const campaign = DEMO_CAMPAIGNS[activeCampaignIdx];
+
+  const getThemeColors = () => {
+    switch (theme) {
+      case 'sand':
+        return {
+          badge: 'bg-[#FEF3C7] text-[#B45309] border-[#FAB319]/40',
+          accent: 'text-[#D97706]',
+          cardBg: 'bg-white border-[#E5DFD3] text-[#0F1210]',
+          innerBg: 'bg-[#FAF9F6] border-[#E5DFD3] text-neutral-800',
+          activeTab: 'bg-[#FEF3C7] border-[#FAB319]/40 text-[#B45309]',
+          inactiveTab: 'bg-transparent border-[#E5DFD3] text-neutral-500 hover:bg-[#FAF9F6] hover:text-[#0F1210]',
+          btnWave: 'bg-[#D97706]',
+          lineColor: '#D97706',
+          chatUser: 'bg-[#FEF3C7] text-neutral-900 border border-[#FAB319]/20 rounded-tr-none',
+          chatAgent: 'bg-[#FAF9F6] border border-[#E5DFD3] text-neutral-800 rounded-tl-none',
+          replyBtn: 'bg-[#FEF3C7] border-[#FAB319]/40 hover:bg-[#FDE68A] text-[#B45309]'
+        };
+      case 'sage':
+        return {
+          badge: 'bg-[#FFA31A]/10 text-[#FFA31A] border-[#FFA31A]/35',
+          accent: 'text-[#FFA31A]',
+          cardBg: 'bg-[#121215] border-white/5 text-[#EFECE6]',
+          innerBg: 'bg-[#16161C] border-white/5 text-[#EFECE6]',
+          activeTab: 'bg-[#FFA31A]/10 border-[#FFA31A]/30 text-[#FFA31A]',
+          inactiveTab: 'bg-transparent border-white/5 text-[#B5B5B5] hover:bg-white/[0.03] hover:text-white',
+          btnWave: 'bg-[#FFA31A]',
+          lineColor: '#FFA31A',
+          chatUser: 'bg-[#FFA31A]/20 border border-[#FFA31A]/30 text-[#FFA31A] rounded-tr-none',
+          chatAgent: 'bg-[#16161C] border border-white/5 text-[#EFECE6] rounded-tl-none',
+          replyBtn: 'bg-[#FFA31A]/10 border-[#FFA31A]/30 hover:bg-[#FFA31A]/20 text-[#FFA31A]'
+        };
+      case 'slate':
+      default:
+        return {
+          badge: 'bg-[#FAB319]/10 text-[#FAB319] border-[#FAB319]/35',
+          accent: 'text-[#FAB319]',
+          cardBg: 'bg-[#0F1012] border border-white/5 text-[#F2F0EC]',
+          innerBg: 'bg-[#151619] border border-white/5 text-[#F2F0EC]',
+          activeTab: 'bg-[#FAB319]/10 border-[#FAB319]/30 text-[#FAB319]',
+          inactiveTab: 'bg-transparent border-white/5 text-[#B5B5B5] hover:bg-white/[0.03] hover:text-[#F2F0EC]',
+          btnWave: 'bg-[#FAB319]',
+          lineColor: '#FAB319',
+          chatUser: 'bg-[#FAB319]/20 border border-[#FAB319]/30 text-[#FAB319] rounded-tr-none',
+          chatAgent: 'bg-[#151619] border border-white/5 text-[#F2F0EC] rounded-tl-none',
+          replyBtn: 'bg-[#FAB319]/10 border-[#FAB319]/30 hover:bg-[#FAB319]/20 text-[#FAB319]'
+        };
+    }
+  };
+
+  const tc = getThemeColors();
 
   // Auto-handling voice wave animation or robotic pulsing
   useEffect(() => {
@@ -169,7 +220,7 @@ export function VoiceAgentDemo({ language }: VoiceAgentDemoProps) {
       {/* Selector & Setup - 5 columns */}
       <div className="lg:col-span-4 flex flex-col justify-between space-y-6">
         <div>
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-amber-100 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-200/40">
+          <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium border ${tc.badge}`}>
             <Sparkles className="w-3 h-3" />
             100% Ultra-Bespoke
           </span>
@@ -191,9 +242,7 @@ export function VoiceAgentDemo({ language }: VoiceAgentDemoProps) {
                 }}
                 disabled={callStatus !== 'idle'}
                 className={`w-full text-left p-4 rounded-xl transition-all duration-300 border flex items-center justify-between ${
-                  activeCampaignIdx === i
-                    ? 'bg-amber-100 hover:bg-amber-100/90 dark:bg-amber-950/40 border-amber-300 dark:border-amber-700/60 shadow-xs'
-                    : 'bg-transparent hover:bg-gray-50 dark:hover:bg-white/5 border-gray-200 dark:border-neutral-800'
+                  activeCampaignIdx === i ? tc.activeTab : tc.inactiveTab
                 } ${callStatus !== 'idle' ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
               >
                 <div>
@@ -213,7 +262,7 @@ export function VoiceAgentDemo({ language }: VoiceAgentDemoProps) {
         </div>
 
         {/* Diagnostic parameters summary */}
-        <div className="p-4 rounded-xl bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800/80 font-mono text-[11px] space-y-2 text-neutral-600 dark:text-neutral-400">
+        <div className={`p-4 rounded-xl border font-mono text-[11px] space-y-2 ${tc.innerBg}`}>
           <div className="flex justify-between">
             <span>AUD_ENGINE:</span>
             <span className="text-green-600 font-medium font-mono">✓ Denmark_West_3 (Aarhus Hub)</span>
@@ -237,7 +286,7 @@ export function VoiceAgentDemo({ language }: VoiceAgentDemoProps) {
       <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
         
         {/* Phone Widget - 5 columns */}
-        <div className="md:col-span-5 flex flex-col justify-center items-center p-6 bg-white dark:bg-neutral-950 rounded-2xl border border-gray-200 dark:border-neutral-800/80 shadow-md">
+        <div className={`md:col-span-5 flex flex-col justify-center items-center p-6 rounded-2xl border shadow-md ${tc.cardBg}`}>
           {/* Audio interface container */}
           <div className="relative w-full aspect-[9/16] max-w-[210px] bg-neutral-900 dark:bg-neutral-950 border-[5px] border-neutral-800 dark:border-neutral-900 rounded-[30px] p-4 flex flex-col justify-between overflow-hidden shadow-xl text-white">
             
@@ -249,7 +298,7 @@ export function VoiceAgentDemo({ language }: VoiceAgentDemoProps) {
             {/* Display screen area */}
             <div className="flex-1 flex flex-col items-center justify-center space-y-4 py-6">
               <div className="text-center">
-                <p className="text-[10px] text-amber-400 font-mono tracking-widest uppercase font-medium">
+                <p className={`text-[10px] ${tc.accent} font-mono tracking-widest uppercase font-medium`}>
                   {callStatus === 'idle' && (language === 'da' ? 'KLAR TIL OPKALD' : 'READY TO CALL')}
                   {callStatus === 'ringing' && (language === 'da' ? 'RINGER...' : 'CALLING...')}
                   {callStatus === 'connected' && (language === 'da' ? 'LIVE FORBINDELSE' : 'LIVE CONVERSATION')}
@@ -268,18 +317,18 @@ export function VoiceAgentDemo({ language }: VoiceAgentDemoProps) {
                 {callStatus === 'connected' && (
                   <>
                     {/* Ring ripple animations */}
-                    <span className="absolute inset-0 rounded-full bg-amber-400/20 animate-ping"></span>
-                    <span className="absolute inset-2 rounded-full bg-amber-400/10 animate-pulse"></span>
+                    <span className="absolute inset-0 rounded-full opacity-20 animate-ping" style={{ backgroundColor: tc.lineColor }}></span>
+                    <span className="absolute inset-2 rounded-full opacity-10 animate-pulse" style={{ backgroundColor: tc.lineColor }}></span>
                   </>
                 )}
 
                 <div className={`p-4 rounded-full transition-all duration-300 ${
                   callStatus === 'connected' 
-                    ? 'bg-amber-400 text-neutral-950 scale-105' 
+                    ? 'text-neutral-950 scale-105' 
                     : callStatus === 'ringing' 
-                    ? 'bg-neutral-700 text-amber-400 animate-pulse'
-                    : 'bg-neutral-700 text-neutral-400'
-                }`}>
+                    ? 'text-white animate-pulse'
+                    : 'text-neutral-400'
+                }`} style={{ backgroundColor: callStatus === 'connected' ? tc.lineColor : '#404040' }}>
                   {callStatus === 'connected' ? (
                     <Volume2 className="w-7 h-7" />
                   ) : (
@@ -304,7 +353,8 @@ export function VoiceAgentDemo({ language }: VoiceAgentDemoProps) {
                         duration: 0.6 + i * 0.08,
                         ease: 'easeInOut'
                       }}
-                      className="w-1 bg-amber-400/80 rounded-full"
+                      className="w-1 rounded-full"
+                      style={{ backgroundColor: tc.lineColor }}
                     />
                   ))
                 ) : (
@@ -345,10 +395,10 @@ export function VoiceAgentDemo({ language }: VoiceAgentDemoProps) {
         </div>
 
         {/* Live Conversation Transcript - 7 columns */}
-        <div className="md:col-span-7 flex flex-col justify-between py-1">
+        <div className={`md:col-span-7 flex flex-col justify-between p-6 rounded-2xl border shadow-md ${tc.cardBg}`}>
           <div className="flex-1 flex flex-col justify-between">
             <div>
-              <div className="flex items-center justify-between border-b pb-2 mb-3 border-gray-100 dark:border-neutral-800">
+              <div className="flex items-center justify-between border-b pb-2 mb-3 border-current/10">
                 <span className="text-xs font-mono text-neutral-500 tracking-wider">
                   {language === 'da' ? 'REALTIDS-TRANSKRIPT' : 'REAL-TIME DIALOGUE LOG'}
                 </span>
@@ -377,9 +427,7 @@ export function VoiceAgentDemo({ language }: VoiceAgentDemoProps) {
                       className={`flex flex-col ${line.sender === 'user' ? 'items-end' : 'items-start'}`}
                     >
                       <div className={`p-3 rounded-2xl max-w-[85%] font-sans leading-relaxed ${
-                        line.sender === 'user'
-                          ? 'bg-amber-100 text-neutral-900 rounded-tr-none'
-                          : 'bg-gray-100 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800/60 rounded-tl-none'
+                        line.sender === 'user' ? tc.chatUser : tc.chatAgent
                       }`}>
                         {line.sender === 'agent' && (
                           <div className="text-[9px] font-mono tracking-wider font-semibold text-neutral-400 mb-1 flex items-center gap-1">
@@ -391,7 +439,7 @@ export function VoiceAgentDemo({ language }: VoiceAgentDemoProps) {
                       </div>
 
                       {line.action && (
-                        <span className="text-[9px] font-mono font-medium text-amber-600 dark:text-amber-400 mt-1 flex items-center gap-1">
+                        <span className={`text-[9px] font-mono font-medium ${tc.accent} mt-1 flex items-center gap-1`}>
                           <RefreshCw className="w-2.5 h-2.5 animate-spin" />
                           {line.action}
                         </span>
@@ -403,7 +451,7 @@ export function VoiceAgentDemo({ language }: VoiceAgentDemoProps) {
             </div>
 
             {/* Interactive Reply Prompts - This makes it incredibly high fidelity! */}
-            <div className="mt-4 pt-3 border-t border-gray-100 dark:border-neutral-800">
+            <div className="mt-4 pt-3 border-t border-current/10">
               <p className="text-[10px] font-mono opacity-50 mb-2 uppercase tracking-tight">
                 {language === 'da' ? '2. Din Svar-Simulering' : '2. Your Dialogue Reply'}
               </p>
@@ -412,7 +460,7 @@ export function VoiceAgentDemo({ language }: VoiceAgentDemoProps) {
                 {callStatus === 'connected' && currentNodeIdx !== -1 && currentNodeIdx < campaign.nodes.length ? (
                   <button
                     onClick={() => handleSelectOption(campaign.nodes[currentNodeIdx], currentNodeIdx)}
-                    className="w-full text-left font-sans text-xs p-3 rounded-xl border border-amber-200 bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/20 dark:border-amber-800/40 text-neutral-900 dark:text-amber-300 flex items-center justify-between group active:scale-[0.99] transition-all cursor-pointer"
+                    className={`w-full text-left font-sans text-xs p-3 rounded-xl border flex items-center justify-between group active:scale-[0.99] transition-all cursor-pointer shadow-xs ${tc.replyBtn}`}
                   >
                     <span>
                       {language === 'da' 

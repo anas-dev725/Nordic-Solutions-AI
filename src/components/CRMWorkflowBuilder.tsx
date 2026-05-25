@@ -9,11 +9,12 @@ import {
   Mail, Sparkles, Database, Send, Play, RefreshCw, CheckCircle2, 
   ArrowRight, Landmark, Building2, TrendingUp, HelpCircle, FileText
 } from 'lucide-react';
-import { Language, CRMLead, WorkflowNode } from '../types';
+import { Language, CRMLead, WorkflowNode, Theme } from '../types';
 import { translations } from '../translations';
 
 interface CRMWorkflowBuilderProps {
   language: Language;
+  theme: Theme;
 }
 
 const INITIAL_NODES: WorkflowNode[] = [
@@ -71,9 +72,71 @@ const STAGE_LEAD_CARDS: CRMLead[] = [
   }
 ];
 
-export function CRMWorkflowBuilder({ language }: CRMWorkflowBuilderProps) {
+export function CRMWorkflowBuilder({ language, theme }: CRMWorkflowBuilderProps) {
   const [nodes, setNodes] = useState<WorkflowNode[]>(INITIAL_NODES);
   const [pipelineLeads, setPipelineLeads] = useState<CRMLead[]>(STAGE_LEAD_CARDS);
+
+  const getThemeColors = () => {
+    switch (theme) {
+      case 'sand':
+        return {
+          badge: 'bg-[#FEF3C7] text-[#B45309] border-[#FAB319]/40',
+          innerBg: 'bg-[#FAF9F6] border-[#E5DFD3] text-neutral-850',
+          nodeActive: 'bg-[#FEF3C7]/40 border-[#FAB319] shadow-xxs',
+          nodeIdle: 'bg-white border-[#E5DFD3] text-[#0F1210]',
+          nodeTextActive: 'text-[#B45309]',
+          nodeTextCompleted: 'text-emerald-800',
+          btnPrimary: 'bg-[#0F1210] hover:bg-[#FAB319] hover:text-[#0F1210] text-[#FAF9F6]',
+          cardBg: 'bg-white border-[#E5DFD3] text-[#0F1210]',
+          accent: 'text-[#D97706]',
+          badgeDb: 'bg-[#FAF9F6] border-[#E5DFD3] text-[#0F1210]',
+          aiBanner: 'bg-[#FEF3C7]/60 border-[#FAB319]/35 text-neutral-800',
+          kColBg: 'bg-[#FAF9F6] border-[#E5DFD3]',
+          kCardBg: 'bg-white border-[#E5DFD3]',
+          swapText: 'text-[#D97706]',
+          lineColor: '#D97706'
+        };
+      case 'sage':
+        return {
+          badge: 'bg-[#FFA31A]/10 text-[#FFA31A] border-[#FFA31A]/35',
+          innerBg: 'bg-[#16161C] border-white/5 text-[#EFECE6]',
+          nodeActive: 'bg-[#FFA31A]/15 border-[#FFA31A]/30 text-[#FFA31A]',
+          nodeIdle: 'bg-[#121215] border-white/5 text-[#EFECE6]',
+          nodeTextActive: 'text-[#FFA31A]',
+          nodeTextCompleted: 'text-[#EFECE6]',
+          btnPrimary: 'bg-[#FFA31A] hover:bg-orange-500 text-black',
+          cardBg: 'bg-[#121215] border-white/5 text-[#EFECE6]',
+          accent: 'text-[#FFA31A]',
+          badgeDb: 'bg-[#16161C] border-white/5 text-[#EFECE6]',
+          aiBanner: 'bg-[#FFA31A]/20 border-[#FFA31A]/30 text-[#FFA31A]',
+          kColBg: 'bg-[#16161C] border-white/5 text-[#EFECE6]',
+          kCardBg: 'bg-[#121215] border-white/5 text-[#EFECE6]',
+          swapText: 'text-[#FFA31A]',
+          lineColor: '#FFA31A'
+        };
+      case 'slate':
+      default:
+        return {
+          badge: 'bg-[#FAB319]/10 text-[#FAB319] border-[#FAB319]/35',
+          innerBg: 'bg-[#151619] border border-white/5 text-[#F2F0EC]',
+          nodeActive: 'bg-[#FAB319]/15 border-[#FAB319]/30 text-[#FAB319]',
+          nodeIdle: 'bg-[#0F1012] border border-white/5 text-[#F2F0EC]',
+          nodeTextActive: 'text-[#FAB319]',
+          nodeTextCompleted: 'text-[#F2F0EC]',
+          btnPrimary: 'bg-[#FAB319] hover:bg-[#FFC107] text-[#080809]',
+          cardBg: 'bg-[#0F1012] border border-white/5 text-[#F2F0EC]',
+          accent: 'text-[#FAB319]',
+          badgeDb: 'bg-[#151619] border border-white/5 text-[#F2F0EC]',
+          aiBanner: 'bg-[#FAB319]/25 border-[#FAB319]/30 text-[#FAB319]',
+          kColBg: 'bg-[#151619] border border-white/5 text-[#F2F0EC]',
+          kCardBg: 'bg-[#0F1012] border border-white/5 text-[#F2F0EC]',
+          swapText: 'text-[#FAB319]',
+          lineColor: '#FAB319'
+        };
+    }
+  };
+
+  const tc = getThemeColors();
   const [isSimulating, setIsSimulating] = useState(false);
   const [simStep, setSimStep] = useState<number>(-1);
   const [currentPayload, setCurrentPayload] = useState<string>('');
@@ -198,13 +261,13 @@ export function CRMWorkflowBuilder({ language }: CRMWorkflowBuilderProps) {
         <div className="lg:col-span-5 flex flex-col justify-between">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-emerald-100 dark:bg-emerald-900/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200/40">
+              <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-medium border ${tc.badge}`}>
                 Workflow Builder
               </span>
               <button
                 onClick={handleNextMessage}
                 disabled={isSimulating}
-                className="text-xs font-mono text-amber-700 dark:text-amber-400 hover:underline flex items-center gap-1 cursor-pointer disabled:opacity-50 disabled:no-underline"
+                className={`text-xs font-mono hover:underline flex items-center gap-1 cursor-pointer disabled:opacity-50 disabled:no-underline ${tc.swapText}`}
               >
                 {language === 'da' ? 'Skift testbesked' : 'Swap Input Sample'}
                 <ArrowRight className="w-3 h-3" />
@@ -240,19 +303,19 @@ export function CRMWorkflowBuilder({ language }: CRMWorkflowBuilderProps) {
                     transition={{ repeat: isNodeActive ? Infinity : 0, duration: 1.5 }}
                     className={`flex items-center gap-4 p-3 rounded-xl border transition-all duration-300 ${
                       isNodeActive 
-                        ? 'bg-amber-100/40 dark:bg-amber-950/25 border-amber-300 dark:border-amber-800 shadow-sm'
+                        ? tc.nodeActive
                         : isNodeCompleted
-                        ? 'bg-emerald-50/30 dark:bg-emerald-900/10 border-emerald-200 dark:border-emerald-900/40'
-                        : 'bg-white dark:bg-neutral-950 border-gray-200 dark:border-neutral-850'
+                        ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
+                        : tc.nodeIdle
                     }`}
                   >
                     <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
                       isNodeActive 
-                        ? 'bg-amber-400 text-neutral-900' 
+                        ? 'bg-current text-current font-bold' 
                         : isNodeCompleted
                         ? 'bg-emerald-500 text-white'
-                        : 'bg-gray-100 dark:bg-neutral-900 text-neutral-500'
-                    }`}>
+                        : 'bg-gray-150 dark:bg-neutral-800 text-neutral-500'
+                    }`} style={{ color: isNodeActive ? tc.lineColor : undefined }}>
                       {node.type === 'trigger' && <Mail className="w-4 h-4" />}
                       {node.type === 'ai' && <Sparkles className="w-4 h-4" />}
                       {node.type === 'condition' && <Database className="w-4 h-4" />}
@@ -269,7 +332,7 @@ export function CRMWorkflowBuilder({ language }: CRMWorkflowBuilderProps) {
                     </div>
 
                     <div className="shrink-0">
-                      {isNodeActive && <RefreshCw className="w-4 h-4 text-amber-600 animate-spin" />}
+                      {isNodeActive && <RefreshCw className="w-4 h-4 animate-spin" style={{ color: tc.lineColor }} />}
                       {isNodeCompleted && <CheckCircle2 className="w-4 h-4 text-emerald-500" />}
                       {!isNodeActive && !isNodeCompleted && <span className="w-4 h-4 rounded-full border border-gray-300 dark:border-neutral-700 block"></span>}
                     </div>
@@ -283,7 +346,7 @@ export function CRMWorkflowBuilder({ language }: CRMWorkflowBuilderProps) {
             <button
               onClick={runSimulation}
               disabled={isSimulating}
-              className="w-full font-display py-3.5 rounded-xl text-xs bg-amber-100 hover:bg-amber-100/90 dark:bg-amber-950/40 border-amber-300 dark:border-amber-700/60 font-medium text-amber-950 dark:text-amber-300 flex items-center justify-center gap-2 group shadow-xs cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className={`w-full font-display py-3.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 group shadow-xs cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${tc.btnPrimary}`}
             >
               {isSimulating ? (
                 <>
@@ -301,15 +364,15 @@ export function CRMWorkflowBuilder({ language }: CRMWorkflowBuilderProps) {
         </div>
 
         {/* Visual CRM Interactive Kanban pipeline - 7 columns */}
-        <div className="lg:col-span-7 flex flex-col justify-between p-5 bg-white dark:bg-neutral-950 rounded-2xl border border-gray-200 dark:border-neutral-800 shadow-md">
+        <div className={`lg:col-span-7 flex flex-col justify-between p-5 rounded-2xl border shadow-md ${tc.cardBg}`}>
           
           <div className="w-full">
-            <div className="flex items-center justify-between border-b pb-2.5 mb-4 border-gray-100 dark:border-neutral-800">
+            <div className="flex items-center justify-between border-b pb-2.5 mb-4 border-current/[0.08]">
               <h3 className="font-display font-medium text-sm flex items-center gap-2">
-                <Database className="w-4 h-4 text-amber-500" />
+                <Database className={`w-4 h-4 ${tc.accent}`} />
                 {language === 'da' ? translations.da.crmPipeTitle : translations.en.crmPipeTitle}
               </h3>
-              <span className="text-[10px] font-mono bg-amber-50 dark:bg-neutral-900 border border-amber-100 dark:border-neutral-800 px-2.5 py-1 rounded text-neutral-500">
+              <span className={`text-[10px] font-mono border px-2.5 py-1 rounded ${tc.badgeDb}`}>
                 ACTIVE_DATABASE
               </span>
             </div>
@@ -321,9 +384,9 @@ export function CRMWorkflowBuilder({ language }: CRMWorkflowBuilderProps) {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="mb-4 p-3 rounded-xl bg-orange-50/60 dark:bg-amber-950/10 border border-amber-200 dark:border-amber-805 text-xs overflow-hidden"
+                  className={`mb-4 p-3 rounded-xl border text-xs overflow-hidden ${tc.aiBanner}`}
                 >
-                  <p className="font-mono text-[9px] uppercase tracking-wider text-amber-600 dark:text-amber-400 font-bold mb-1 flex items-center gap-1.5">
+                  <p className="font-mono text-[9px] uppercase tracking-wider font-bold mb-1 flex items-center gap-1.5">
                     <Sparkles className="w-3 h-3 text-amber-500" />
                     AI DATA EXTRACTION ENGINE REAL-TIME COMPLETED:
                   </p>
@@ -355,12 +418,12 @@ export function CRMWorkflowBuilder({ language }: CRMWorkflowBuilderProps) {
                   : colStage === 'lead' ? 'New Leads' : colStage === 'contacted' ? 'Contacted' : colStage === 'analyzed' ? 'Enriched' : 'Scheduled';
 
                 return (
-                  <div key={colStage} className="space-y-3 bg-gray-50/70 dark:bg-neutral-900/40 p-2 py-3 rounded-xl border border-gray-100 dark:border-neutral-900 flex flex-col min-h-[180px]">
-                    <div className="flex items-center justify-between px-1 mb-1 border-b border-gray-100 dark:border-neutral-800 pb-1">
-                      <span className="text-[10px] font-sans font-medium tracking-tight uppercase text-neutral-500 truncate">
+                  <div key={colStage} className={`space-y-3 p-2 py-3 rounded-xl border flex flex-col min-h-[180px] ${tc.kColBg}`}>
+                    <div className="flex items-center justify-between px-1 mb-1 border-b border-current/[0.08] pb-1">
+                      <span className="text-[10px] font-sans font-medium tracking-tight uppercase opacity-70 truncate">
                         {colTitle}
                       </span>
-                      <span className="text-[9px] font-mono font-bold bg-neutral-200 dark:bg-neutral-800 px-1 rounded">
+                      <span className="text-[9px] font-mono font-bold bg-neutral-200 dark:bg-neutral-800/80 px-1 rounded">
                         {stageLeads.length}
                       </span>
                     </div>
@@ -373,7 +436,7 @@ export function CRMWorkflowBuilder({ language }: CRMWorkflowBuilderProps) {
                             initial={{ scale: 0.9, opacity: 0, y: 10 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.9, opacity: 0 }}
-                            className="bg-white dark:bg-neutral-950 border border-gray-200 dark:border-neutral-800/80 p-2.5 rounded-lg shadow-xxs font-sans text-xs flex flex-col justify-between space-y-2"
+                            className={`border p-2.5 rounded-lg shadow-xxs font-sans text-xs flex flex-col justify-between space-y-2 ${tc.kCardBg}`}
                           >
                             <div>
                               <h5 className="font-medium text-[11px] truncate text-neutral-950 dark:text-neutral-100">{leadCard.name}</h5>
@@ -384,11 +447,11 @@ export function CRMWorkflowBuilder({ language }: CRMWorkflowBuilderProps) {
                               {language === 'da' ? leadCard.summaryDa : leadCard.summaryEn}
                             </p>
 
-                            <div className="flex items-center justify-between border-t border-gray-100 dark:border-neutral-900 pt-1.5">
+                             <div className="flex items-center justify-between border-t border-current/10 pt-1.5">
                               <span className="text-[9px] font-mono font-bold text-emerald-600">
                                 {leadCard.value.toLocaleString(language === 'da' ? 'da-DK' : 'en-US')} kr.
                               </span>
-                              <span className="text-[9px] font-mono font-bold bg-amber-50 dark:bg-amber-950/30 text-amber-700 px-1 rounded">
+                              <span className="text-[9px] font-mono font-bold bg-amber-50 dark:bg-amber-950/30 text-amber-700 px-1 rounded" style={{ backgroundColor: theme === 'sand' ? '#FEF3C7' : undefined, color: theme === 'sand' ? '#B45309' : undefined }}>
                                 AI: {leadCard.score}
                               </span>
                             </div>
@@ -403,7 +466,7 @@ export function CRMWorkflowBuilder({ language }: CRMWorkflowBuilderProps) {
           </div>
 
           {/* Running explanation status */}
-          <div className="mt-4 pt-3 border-t border-gray-105 dark:border-neutral-800 text-[10px] sm:text-xs font-sans opacity-70 flex justify-between items-center text-neutral-600 dark:text-neutral-400">
+          <div className="mt-4 pt-3 border-t border-current/10 text-[10px] sm:text-xs font-sans opacity-70 flex justify-between items-center text-neutral-600 dark:text-neutral-400">
             <span>
               {isSimulating 
                 ? (language === 'da' ? translations.da.nodesActiveText : translations.en.nodesActiveText)

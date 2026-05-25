@@ -14,6 +14,7 @@ import {
 import { Language, Theme } from './types';
 import { translations } from './translations';
 import { VoiceAgentDemo } from './components/VoiceAgentDemo';
+import { VoiceUseCases } from './components/VoiceUseCases';
 import { CRMWorkflowBuilder } from './components/CRMWorkflowBuilder';
 import { RoiCalculator } from './components/RoiCalculator';
 import { InquiryRoadmap } from './components/InquiryRoadmap';
@@ -282,258 +283,187 @@ export default function App() {
 
       {selectedServicePage === null ? (
         <>
-          {/* HERO SECTION - COPENHAGEN DESIGN STUDIO STYLE */}
+          {/* HERO SECTION - NEW LIVE CINEMATIC VIDEO BACKGROUND EDITION */}
           <header 
             onPointerMove={handleHeroMouseMove}
             onPointerLeave={handleHeroMouseLeave}
-            className="relative z-10 pt-32 sm:pt-40 pb-20 sm:pb-28 w-full px-6 sm:px-16 lg:px-24 flex flex-col items-center overflow-hidden border-b border-current/[0.04] bg-current/[0.004] my-0 cursor-default group"
+            className="relative z-10 pt-40 sm:pt-48 pb-24 sm:pb-36 w-full px-6 sm:px-16 lg:px-24 flex flex-col justify-between overflow-hidden border-b border-white/5 my-0 cursor-default group min-h-[85vh] sm:min-h-[90vh]"
           >
-                     {/* Subtle dynamic background texture & kinetic ambient gradient overlay */}
-            <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none select-none">
+            {/* CONTINUOUS CINEMATIC BACKGROUND VIDEO LOOP */}
+            <div className="absolute inset-0 -z-20 w-full h-full overflow-hidden select-none pointer-events-none">
+              <video
+                className="w-full h-full object-cover scale-[1.01] transition-opacity duration-1000 origin-center"
+                autoPlay
+                muted
+                loop
+                playsInline
+                src="https://assets.mixkit.co/videos/preview/mixkit-senior-man-smiling-and-talking-on-the-phone-41617-large.mp4"
+                poster="https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&w=1200&q=80"
+              />
               
-              {/* Soft modern glowing ambient pools */}
-              <motion.div 
-                animate={{ 
-                  x: heroMouse.x * 25, 
-                  y: heroMouse.y * 25 
-                }}
-                transition={{ type: "spring", stiffness: 45, damping: 20 }}
-                className="absolute inset-0 opacity-[0.2] dark:opacity-[0.16] filter blur-[100px] select-none pointer-events-none"
-              >
-                <div className="absolute top-[5%] left-[10%] w-[380px] h-[380px] rounded-full bg-[#FAB319]/15" />
-                <div className="absolute bottom-[8%] right-[20%] w-[420px] h-[420px] rounded-full bg-[#D97706]/10 animate-pulse" />
-              </motion.div>
+              {/* Elegant dual gradient overlays for superior text contrast & visual depth */}
+              <div className="absolute inset-0 bg-neutral-950/45 mix-blend-multiply" />
+              <div className={`absolute inset-0 transition-all duration-700 ${
+                theme === 'sand'
+                  ? 'bg-gradient-to-tr from-[#0F1210]/95 via-[#0F1210]/65 to-transparent'
+                  : theme === 'sage'
+                  ? 'bg-gradient-to-tr from-[#0C0C0E]/95 via-[#0C0C0E]/70 to-transparent'
+                  : 'bg-gradient-to-tr from-[#080809]/95 via-[#080809]/70 to-transparent'
+              }`} />
+              
+              {/* Micro technical grids layered on top of the video to retain our Nordic architectural identity */}
+              <div className="absolute inset-0 bg-radial-gradient from-transparent to-neutral-950/70 opacity-30" />
+            </div>
 
-              {/* Ultra-fine tactile film grain SVG backdrop */}
-              <motion.div 
-                animate={{ 
-                  x: heroMouse.x * -4, 
-                  y: heroMouse.y * -4 
-                }}
-                transition={{ type: "spring", stiffness: 30, damping: 15 }}
-                className="absolute -inset-[50%] w-[200%] h-[200%] opacity-[0.03] dark:opacity-[0.02] mix-blend-overlay"
-              >
-                <svg 
-                  viewBox="0 0 250 250" 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  className="w-full h-full animate-noise-grain"
-                >
-                  <filter id="editorialNoise">
-                    <feTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves="4" stitchTiles="stitch" />
-                    <feColorMatrix type="matrix" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.8 0" />
-                  </filter>
-                  <rect width="100%" height="100%" filter="url(#editorialNoise)" />
-                </svg>
-              </motion.div>
+            {/* Subtle floating technical indicator brackets in the background of the video layout */}
+            <div className="absolute inset-0 select-none pointer-events-none z-10 opacity-70">
+              <div className="absolute top-6 left-6 font-mono text-[9px] tracking-widest text-white/40 hidden lg:block">✦ 55.6761° N, 12.5683° E // VIDEO_STREAM_ACTIVE</div>
+              <div className="absolute top-6 right-6 font-mono text-[9px] tracking-widest text-white/40 hidden lg:block">NORDIC_SOLUTIONS_AGENTS_v1.07</div>
+              
+              {/* Minimal geometric corner brackets */}
+              <div className="absolute top-6 left-6 w-4 h-4 border-t border-l border-white/20"></div>
+              <div className="absolute top-6 right-6 w-4 h-4 border-t border-r border-white/20"></div>
+              <div className="absolute bottom-6 left-6 w-4 h-4 border-b border-l border-white/20"></div>
+              <div className="absolute bottom-6 right-6 w-4 h-4 border-b border-r border-white/20"></div>
+            </div>
 
-              {/* MODERN ARCHITECTURAL PIPELINE CIRCUIT GRID */}
-              <div className="absolute inset-0 flex items-center justify-center -z-5 opacity-40 dark:opacity-30">
-                <svg className="w-full h-full text-[#FAB319]/20" fill="none" stroke="currentColor" strokeWidth="1" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <pattern id="grid-pattern" width="80" height="80" patternUnits="userSpaceOnUse">
-                      <path d="M 80 0 L 0 0 0 80" className="text-current opacity-20" strokeWidth="0.5" />
-                      <circle cx="80" cy="80" r="1.5" className="text-[#FAB319]" fill="currentColor" fillOpacity="0.4" />
-                    </pattern>
-                    <linearGradient id="line-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#FAB319" stopOpacity="0.1" />
-                      <stop offset="50%" stopColor="#FAB319" stopOpacity="0.8" />
-                      <stop offset="100%" stopColor="#FAB319" stopOpacity="0.1" />
-                    </linearGradient>
-                  </defs>
+            <div className="w-full max-w-7xl mx-auto flex-1 flex flex-col justify-center relative z-20">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                
+                {/* Left Column: Authentic Sierra brand header & premium Call to Action */}
+                <div className="lg:col-span-8 flex flex-col items-start text-left space-y-7 max-w-2xl">
                   
-                  {/* Fill the background with a soft technical grid pattern */}
-                  <rect width="100%" height="100%" fill="url(#grid-pattern)" />
-                  
-                  {/* Active flow pipelines (interconnected circuit paths with flowing dash phase) */}
-                  <g className="opacity-70">
-                    {/* Horizontal pipeline 1 */}
-                    <path d="M -100,150 L 300,150 L 400,250 L 900,250 L 1000,150 L 2200,150" 
-                      stroke="url(#line-grad)" strokeWidth="1.2" strokeDasharray="12 180" className="animate-pipeline-flow-1" />
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-xs font-mono font-medium tracking-wider uppercase bg-white/10 text-white/90 border border-white/20 backdrop-blur-md">
+                      <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+                      {dict.tagline}
+                    </span>
+                  </motion.div>
+
+                  <div className="space-y-4">
+                    <motion.h1 
+                      initial={{ opacity: 0, y: 20 }} 
+                      animate={{ opacity: 1, y: 0 }} 
+                      transition={{ duration: 0.8, delay: 0.1 }}
+                      className="text-4xl sm:text-5xl lg:text-6xl font-display font-semibold leading-[1.1] tracking-tight text-white"
+                    >
+                      {language === 'da' ? 'Bedre kundeoplevelser.' : 'Better customer experiences.'} <br />
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-[#FAB319]">
+                        {language === 'da' ? 'Nordic Solutions.' : 'Nordic Solutions.'}
+                      </span>
+                    </motion.h1>
+
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 1, delay: 0.3 }}
+                      className="text-sm sm:text-base leading-relaxed text-neutral-200/90 font-sans max-w-xl"
+                    >
+                      {language === 'da'
+                        ? 'Vi erstatter trivielle processer med intelligente AI-agenter, fuldt integrerede stemmestyrede assistenter og automatiserede CRM-pipelines. Skabt til skandinaviske virksomheder.'
+                        : 'We replace trivial manual chores with hyper-efficient AI agents, custom conversational voice engines, and robust CRM orchestrations. Tailored to Scandinavian modernism.'
+                      }
+                    </motion.p>
+                  </div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                    className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto text-xs"
+                  >
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => handleScrollToSection('scheduler-section')}
+                      className="w-full sm:w-auto px-7 py-3.5 rounded-full text-xs font-display font-semibold bg-white hover:bg-neutral-150 text-neutral-950 flex items-center justify-center gap-2 cursor-pointer shadow-lg transition-colors duration-300"
+                    >
+                      {language === 'da' ? 'Læs mere' : 'Learn more'}
+                      <ArrowRight className="w-4 h-4 text-neutral-950" />
+                    </motion.button>
                     
-                    {/* Horizontal pipeline 2 */}
-                    <path d="M -100,450 L 600,450 L 700,350 L 1200,350 L 1300,450 L 2200,450" 
-                      stroke="url(#line-grad)" strokeWidth="1" strokeDasharray="15 220" className="animate-pipeline-flow-2" />
+                    <motion.button
+                      whileHover={{ scale: 1.02, bg: "rgba(255,255,255,0.15)" }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => handleScrollToSection('sandbox')}
+                      className="w-full sm:w-auto px-7 py-3.5 rounded-full text-xs font-display font-semibold text-white border border-white/30 backdrop-blur-xs hover:border-white/50 flex items-center justify-center gap-2 cursor-pointer transition-colors duration-300"
+                    >
+                      {language === 'da' ? 'Oplev AI-Sandkasse' : 'Explore Simulator'}
+                    </motion.button>
+                  </motion.div>
 
-                    {/* Transversal connector pipeline */}
-                    <path d="M 200,50 L 200,300 L 350,300 L 350,550" 
-                      stroke="#FAB319" strokeWidth="0.8" strokeOpacity="0.15" />
-                    <path d="M 850,100 L 850,400 L 1100,400 Q 1150,400 1150,500" 
-                      stroke="#FAB319" strokeWidth="0.8" strokeOpacity="0.15" />
-                  </g>
-                </svg>
+                </div>
+
+                {/* Right Column: Mini Interactive Console or sleek branding card overlay */}
+                <div className="lg:col-span-4 hidden lg:block">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    className="p-6 rounded-2xl bg-neutral-950/50 border border-white/10 backdrop-blur-md space-y-4"
+                  >
+                    <div className="flex items-center justify-between border-b border-white/5 pb-3">
+                      <span className="text-[10px] font-mono tracking-widest text-[#FAB319]/90 font-bold">PLATFORM_METRICS</span>
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <div className="flex justify-between items-center text-xs">
+                        <span className="opacity-70 text-white font-mono text-[10px]">RESPONSE_TIME:</span>
+                        <span className="font-mono text-white text-[10px] font-bold">0.4 sec average</span>
+                      </div>
+                      <div className="flex justify-between items-center text-xs">
+                        <span className="opacity-70 text-white font-mono text-[10px]">GDPR_COMPLIANT:</span>
+                        <span className="font-mono text-emerald-400 text-[10px] font-bold">✓ COPENHAGEN VPS</span>
+                      </div>
+                      <div className="flex justify-between items-center text-xs">
+                        <span className="opacity-70 text-white font-mono text-[10px]">ACTIVE_CHANNELS:</span>
+                        <span className="font-mono text-white text-[10px] font-bold">VoIP / HubSpot / n8n</span>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+
               </div>
-
-              {/* Technical indicators and brackets on the margin */}
-              <motion.div
-                animate={{ 
-                  x: heroMouse.x * -10, 
-                  y: heroMouse.y * -10 
-                }}
-                transition={{ type: "spring", stiffness: 60, damping: 25 }}
-                className="absolute inset-0 select-none pointer-events-none z-10"
-              >
-                {/* Micro tech info */}
-                <div className="absolute top-4 left-6 font-mono text-[9px] tracking-widest opacity-25 hidden lg:block">✦ 55.6761° N, 12.5683° E // CPH.INTELLIGENCE</div>
-                <div className="absolute top-4 right-6 font-mono text-[9px] tracking-widest opacity-25 hidden lg:block">NORDIC_SOLUTIONS_AGENTS_v1.07</div>
-                <div className="absolute bottom-5 left-6 font-mono text-[9px] tracking-widest opacity-20 hidden lg:block">CORE_VM_INGRESS: PORT_3000 // OPERATIONAL STATUS LIVE</div>
-                <div className="absolute bottom-5 right-6 font-mono text-[9px] tracking-widest opacity-20 hidden lg:block">SECURE_GDPR_LOCAL_DATA_ISOLATION_12MS</div>
- 
-                {/* Minimal geometric corner brackets */}
-                <div className="absolute top-5 left-5 w-4 h-4 border-t border-l border-current/15"></div>
-                <div className="absolute top-5 right-5 w-4 h-4 border-t border-r border-current/15"></div>
-                <div className="absolute bottom-5 left-5 w-4 h-4 border-b border-l border-current/15"></div>
-                <div className="absolute bottom-5 right-5 w-4 h-4 border-b border-r border-current/15"></div>
-
-                {/* Highly structured, floating technical indicators representing core service statuses */}
-                <div className="absolute top-[15%] left-[5%] hidden xl:flex flex-col gap-1 p-3.5 rounded-xl bg-[#0F1012]/80 border border-white/5 shadow-2xl backdrop-blur-md animate-float">
-                  <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
-                    <span className="font-mono text-[9px] uppercase tracking-widest font-bold opacity-80 text-white">LIVE_VOICE_LINE</span>
-                  </div>
-                  <span className="font-mono text-[8.5px] opacity-40">SIP SLA: 0.4s response</span>
-                </div>
-
-                <div className="absolute top-[22%] right-[5%] hidden xl:flex flex-col gap-1 p-3.5 rounded-xl bg-[#0F1012]/80 border border-white/5 shadow-2xl backdrop-blur-md animate-float" style={{ animationDelay: '1.2s' }}>
-                  <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="font-mono text-[9px] uppercase tracking-widest font-bold opacity-80 text-white">HUBSPOT_PIPELINE</span>
-                  </div>
-                  <span className="font-mono text-[8.5px] opacity-45">SYNC_STATUS: SECURE_GDPR</span>
-                </div>
-
-                <div className="absolute bottom-[20%] left-[6%] hidden xl:flex flex-col gap-1 p-3.5 rounded-xl bg-[#0F1012]/80 border border-white/5 shadow-2xl backdrop-blur-md animate-float" style={{ animationDelay: '0.6s' }}>
-                  <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#FAB319] animate-pulse" />
-                    <span className="font-mono text-[9px] uppercase tracking-widest font-bold opacity-80 text-white">n8n_SCHEDULER</span>
-                  </div>
-                  <span className="font-mono text-[8.5px] opacity-45">QUEUE: Idle (0 errors)</span>
-                </div>
-
-                <div className="absolute bottom-[24%] right-[6%] hidden xl:flex flex-col gap-1 p-3.5 rounded-xl bg-[#0F1012]/80 border border-white/5 shadow-2xl backdrop-blur-md animate-float" style={{ animationDelay: '1.8s' }}>
-                  <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    <span className="font-mono text-[9px] uppercase tracking-widest font-bold opacity-80 text-white">EU_DATA_HOST</span>
-                  </div>
-                  <span className="font-mono text-[8.5px] opacity-45">Location: Copenhagen Node</span>
-                </div>
-              </motion.div>
- 
-              {/* Crosshair target in exact center */}
-              <motion.div 
-                animate={{ 
-                  x: heroMouse.x * 12, 
-                  y: heroMouse.y * 12 
-                }}
-                transition={{ type: "spring", stiffness: 75, damping: 18 }}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 opacity-15 text-[#FAB319]"
-              >
-                <div className="absolute top-0 bottom-0 left-2 w-[1px] bg-current" />
-                <div className="absolute left-0 right-0 top-2 h-[1px] bg-current" />
-              </motion.div>
- 
-              {/* Edge vignetting mask for refined visual focus */}
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-current/[0.015]" />
-            </div>
-        
-        <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-20">
-          
-          {/* Left Column: Words and interactive call-to-actions */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left space-y-6">
-            
-            <motion.div
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-xs font-mono font-medium tracking-wide uppercase ${c.badge}`}>
-                <Sparkles className="w-3.5 h-3.5 fill-current animate-float" />
-                {dict.tagline}
-              </span>
-            </motion.div>
-
-            <div className="space-y-4 max-w-2xl">
-              <motion.h1 
-                initial={{ opacity: 0, y: 25 }} 
-                animate={{ opacity: 1, y: 0 }} 
-                transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className="text-3xl sm:text-5xl lg:text-[45px] xl:text-[54px] font-display font-medium leading-[1.1] tracking-tight"
-              >
-                {dict.heroTitle_1} <br />
-                <span className={`block sm:inline mt-1.5 sm:mt-0 select-none min-h-[1.2em] font-serif italic font-normal ${c.accentText}`}>
-                  <Typewriter phrases={dynamicSubheadings[language]} currentIndex={subheadingIndex} />
-                </span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className={`text-sm sm:text-base leading-relaxed ${c.textMuted}`}
-              >
-                {dict.heroSub}
-              </motion.p>
             </div>
 
+            {/* SIERRA AGENT CHAT CAPSULE WIDGET (from user screenshot) */}
             <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.1, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col sm:flex-row items-center gap-3.5 w-full sm:w-auto"
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ delay: 0.7, type: "spring", stiffness: 100 }}
+              onClick={() => {
+                handleScrollToSection('sandbox');
+                setActiveSandboxTab('voice');
+              }}
+              className="absolute bottom-6 right-6 sm:bottom-10 sm:right-10 z-30 max-w-[280px] sm:max-w-xs bg-neutral-900/75 hover:bg-neutral-950/90 border border-white/15 backdrop-blur-md p-4 rounded-2xl flex items-center gap-3.5 shadow-xl transition-all cursor-pointer group hover:scale-[1.02]"
             >
-              <motion.button
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 18 }}
-                onClick={() => handleScrollToSection('scheduler-section')}
-                className={`w-full sm:w-auto px-6 py-4 rounded-xl text-xs font-display font-semibold flex items-center justify-center gap-1.5 cursor-pointer shadow-md ${c.buttonPrimary}`}
-              >
-                {language === 'da' ? 'Book Gratis Driftsanalyse' : 'Book Free Analysis'}
-                <ArrowRight className="w-4 h-4" />
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 18 }}
-                onClick={() => handleScrollToSection('solutions')}
-                className={`w-full sm:w-auto px-6 py-4 rounded-xl text-xs font-display font-semibold flex items-center justify-center cursor-pointer border border-current/10 hover:bg-current/[0.02] ${c.buttonSecondary}`}
-              >
-                {dict.ctaExplore}
-              </motion.button>
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 flex items-center justify-center text-[#FAB319] relative shrink-0 border border-white/20">
+                <Sparkles className="w-5 h-5 text-amber-400 rotate-12" />
+                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-neutral-900" />
+              </div>
+              <div className="flex-1 text-left min-w-0">
+                <h4 className="font-sans font-bold text-xs text-white">
+                  Nordic Agent
+                </h4>
+                <p className="font-sans text-[11px] sm:text-xs text-neutral-300 mt-0.5 leading-snug">
+                  {language === 'da' ? 'Hej, hvad kan jeg hjælpe dig med i dag?' : 'Hi, what can I do for you today?'}
+                </p>
+              </div>
             </motion.div>
 
-          </div>
+            {/* Seamless Trust Ribbon */}
+            <div className="w-full max-w-5xl mx-auto mt-8 pt-4 border-t border-white/5 flex flex-col items-center space-y-2 opacity-50">
+              <p className="text-[10px] font-mono uppercase tracking-widest text-[#FAB319]">
+                {language === 'da' ? 'Bygget i København til nordiske virksomheder' : 'Built in Copenhagen for leading enterprises'}
+              </p>
+            </div>
 
-          {/* Right Column: Premium Interactive Telemetry Console */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.96, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-5 w-full relative z-10"
-          >
-            <HeroConsole language={language} theme={theme} />
-          </motion.div>
-
-        </div>
- 
-        {/* Horizontal Danish logos ribbon with sophisticated scale/opacity fade */}
-        <motion.div 
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-16 border-t w-full max-w-5xl pt-8 flex flex-col items-center space-y-4 border-gray-200/40 dark:border-neutral-800/40 opacity-40 hover:opacity-80 transition-opacity duration-500"
-        >
-          <p className="text-[9px] font-mono uppercase tracking-widest opacity-50">
-            {language === 'da' ? 'TILLID AF DE BEDSTE DANSKE VIRKSOMHEDER' : 'TRUSTED BY LEADING DANISH ENTERPRISES'}
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 font-serif italic text-sm sm:text-base">
-            <span className="font-display font-bold text-xs sm:text-sm tracking-tight text-current uppercase not-italic">✓ Cph_Furniture™</span>
-            <span className="font-sans font-semibold tracking-wide text-xs sm:text-sm opacity-90 not-italic">Aarhus Clinic Hub</span>
-            <span className="font-serif text-current font-medium">Odense Logistics ApS</span>
-            <span className="font-mono text-xs text-current not-italic uppercase tracking-tight">Vesterbro.Design</span>
-          </div>
-        </motion.div>
-
-      </header>
+          </header>
 
       {/* SECTION 1: CORE SOLUTIONS SHOWCASE (Asymmetrical Elegant Presentation) */}
       <section id="solutions" className={`relative z-10 py-16 sm:py-28 border-t ${c.divider} overflow-hidden`}>
@@ -709,6 +639,9 @@ export default function App() {
         onBookClick={() => handleScrollToSection('scheduler-section')}
       />
 
+      {/* NEW SECTION: AI VOICE AGENT USE CASES SHOWCASE */}
+      <VoiceUseCases language={language} theme={theme} />
+
       {/* SECTION 2: INTERACTIVE AI SANDBOX PLAYGROUND (Bespoke Operating Console Style) */}
       <section id="sandbox" className={`relative z-10 py-16 sm:py-28 border-t ${c.divider} overflow-hidden`}>
         {/* Subtle decorative linear grid lines in background */}
@@ -792,9 +725,9 @@ export default function App() {
               <div className={`absolute inset-0 ${c.gridPattern} opacity-10 pointer-events-none`}></div>
 
               <div className="relative z-10 w-full">
-                {activeSandboxTab === 'voice' && <VoiceAgentDemo language={language} />}
-                {activeSandboxTab === 'crm' && <CRMWorkflowBuilder language={language} />}
-                {activeSandboxTab === 'roi' && <RoiCalculator language={language} />}
+                {activeSandboxTab === 'voice' && <VoiceAgentDemo language={language} theme={theme} />}
+                {activeSandboxTab === 'crm' && <CRMWorkflowBuilder language={language} theme={theme} />}
+                {activeSandboxTab === 'roi' && <RoiCalculator language={language} theme={theme} />}
               </div>
             </div>
 
@@ -821,7 +754,7 @@ export default function App() {
             </p>
           </div>
 
-          <RoiCalculator language={language} />
+          <RoiCalculator language={language} theme={theme} />
 
         </div>
       </section>
