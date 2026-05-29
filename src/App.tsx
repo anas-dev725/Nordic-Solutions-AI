@@ -26,13 +26,14 @@ import { SpecializedAgents } from './components/SpecializedAgents';
 import { MeetingScheduler } from './components/MeetingScheduler';
 import { BlogsAndCaseStudies } from './components/BlogsAndCaseStudies';
 import { HeroConsole } from './components/HeroConsole';
+import { AuthPortal } from './components/AuthPortal';
 
 export default function App() {
   const [language, setLanguage] = useState<Language>('da');
   const [theme, setTheme] = useState<Theme>('slate'); // Default to Nordic Dark Editorial for premium default feel
   const [activeSandboxTab, setActiveSandboxTab] = useState<'voice' | 'crm' | 'roi'>('voice');
   const [scrolledToTop, setScrolledToTop] = useState(true);
-  const [selectedServicePage, setSelectedServicePage] = useState<'voice' | 'crm' | 'automation' | 'blogs' | null>(null);
+  const [selectedServicePage, setSelectedServicePage] = useState<'voice' | 'crm' | 'automation' | 'blogs' | 'login' | null>(null);
 
   const [heroMouse, setHeroMouse] = useState({ x: 0, y: 0 });
 
@@ -274,6 +275,29 @@ export default function App() {
                 }`}
               >
                 {language === 'da' ? 'EN' : 'DK'}
+              </button>
+
+              {/* Premium Interactive Sign-up & Login Portal Trigger */}
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedServicePage(selectedServicePage === 'login' ? null : 'login');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg font-sans font-semibold tracking-wider text-[10px] sm:text-[11px] uppercase transition-all duration-300 cursor-pointer shadow-sm hover:scale-[1.02] active:scale-[0.98] shrink-0 ${
+                  selectedServicePage === 'login'
+                    ? theme === 'sand' 
+                      ? 'bg-[#0F1210] text-[#FAF9F6] border-2 border-[#D97706]' 
+                      : 'bg-white/10 text-white border-2 border-[#FAB319]'
+                    : theme === 'sand'
+                    ? 'bg-[#0F1210] text-[#FAF9F6] hover:bg-[#D97706]'
+                    : theme === 'sage'
+                    ? 'bg-[#FFA31A] text-[#0C0C0E] hover:bg-[#FFB74D]'
+                    : 'bg-[#FAB319] text-[#080809] hover:bg-[#FFC107]'
+                }`}
+              >
+                <span>{language === 'da' ? 'Kundeportal' : 'Client Portal'}</span>
+                <Sparkles className="w-3.5 h-3.5 fill-current animate-pulse text-current" />
               </button>
 
             </div>
@@ -1177,6 +1201,13 @@ export default function App() {
                   setSelectedServicePage(null);
                   setTimeout(() => handleScrollToSection('scheduler-section'), 120);
                 }}
+              />
+            )}
+            {selectedServicePage === 'login' && (
+              <AuthPortal 
+                language={language}
+                theme={theme}
+                onBackToHome={() => setSelectedServicePage(null)}
               />
             )}
           </AnimatePresence>
